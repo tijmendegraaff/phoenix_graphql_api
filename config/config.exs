@@ -22,6 +22,10 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Guardian Config
+config :phoenix_graphql_api, PhoenixGraphqlApi.Guardian,
+  issuer: "phoenix_graphql_api",
+  secret_key: "MYiszwfsHoBs7fTfsCyp45lu44SRVk4QY9Nb0eQfLgO39+TppxmD7te44CCu7uR9"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
