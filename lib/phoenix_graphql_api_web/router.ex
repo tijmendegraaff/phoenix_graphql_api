@@ -1,20 +1,32 @@
 defmodule PhoenixGraphqlApiWeb.Router do
   use PhoenixGraphqlApiWeb, :router
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  # pipeline :api do
+  #   plug :accepts, ["json"]
+  # end
+
+  pipeline :graphql do
+    # plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    # plug Guardian.Plug.LoadResource
+    # plug PhoenixGraphqlApiWeb.Context
   end
 
-  scope "/api", PhoenixGraphqlApiWeb do
-    pipe_through :api
-  end
-  
-  scope "/" do
-    forward "/api/graphql", Absinthe.Plug,
+  scope "/api" do
+    pipe_through :graphql
+    forward "/", Absinthe.Plug,
       schema: PhoenixGraphqlApiWeb.Schema
-    
-    forward "/api/graphiql", Absinthe.Plug.GraphiQL,
-      schema: PhoenixGraphqlApiWeb.Schema,
-      interface: :simple
   end
+
+  forward "/graphiql", Absinthe.Plug.GraphiQL,
+    schema: PhoenixGraphqlApiWeb.Schema
+  
+  
+  # scope "/" do
+  #   forward "/api/graphql", Absinthe.Plug,
+  #     schema: PhoenixGraphqlApiWeb.Schema
+    
+  #   forward "/api/graphiql", Absinthe.Plug.GraphiQL,
+  #     schema: PhoenixGraphqlApiWeb.Schema,
+  #     interface: :simple
+  # end
 end
