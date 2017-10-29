@@ -7,7 +7,8 @@ defmodule PhoenixGraphqlApi.Post do
   schema "posts" do
     field :body, :string
     field :title, :string
-    field :user_id, :id
+
+    belongs_to :user, PhoenixGraphqlApi.User
 
     timestamps()
   end
@@ -15,7 +16,7 @@ defmodule PhoenixGraphqlApi.Post do
   @doc false
   def changeset(%Post{} = post, attrs) do
     post
-    |> cast(attrs, [:title, :body])
-    |> validate_required([:title, :body])
+    |> cast(attrs, [:title, :body, :user_id])
+    |> validate_required([:title, :body, :user_id])
   end
 end
