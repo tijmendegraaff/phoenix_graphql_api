@@ -43,6 +43,8 @@ defmodule PhoenixGraphqlApi.Mixfile do
       {:absinthe_plug, "~> 1.4.0-beta or ~> 1.4.0-rc or ~> 1.4.0", override: true},
       {:absinthe_phoenix, "~> 1.4.0-beta or ~> 1.4.0-rc or ~> 1.4.0", override: true},
       {:absinthe_ecto, "~> 0.1.2"},
+      {:comeonin, "~> 4.0"},
+      {:guardian, "~> 1.0-beta"},
       {:faker, "~> 0.9", only: [:test, :dev]}
     ]
   end
