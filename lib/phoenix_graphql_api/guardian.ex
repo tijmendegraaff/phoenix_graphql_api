@@ -10,7 +10,11 @@ defmodule PhoenixGraphqlApi.Guardian do
     end
   
     def resource_from_claims(claims) do
-      {:ok, find_me_a_resource(claims["sub"])}
+    #   {:ok, find_me_a_resource(claims["sub"])}
+        case PhoenixGraphqlApi.Repo.get(PhoenixGraphqlApiWeb.Schema.UserTypes, claims["sub"]) do
+            nil -> {:error, "user not found"}
+            user -> {:ok, user}
+        end
     end
     def resource_from_claims(_claims) do
       {:error, :reason_for_error}
