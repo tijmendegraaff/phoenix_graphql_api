@@ -6,6 +6,7 @@ defmodule PhoenixGraphqlApiWeb.Schema do
 
     import_types PhoenixGraphqlApiWeb.Schema.UserTypes
     import_types PhoenixGraphqlApiWeb.Schema.PostTypes
+    import_types PhoenixGraphqlApiWeb.Schema.SessionTypes
 
     
 
@@ -42,6 +43,13 @@ defmodule PhoenixGraphqlApiWeb.Schema do
     end
 
     mutation do
+        field :login, type: :session do
+            arg :email, non_null(:string)
+            arg :password, non_null(:string)
+            
+            resolve &UserResolver.login/2
+        end
+
         field :update_user, type: :user do
             arg :id, non_null(:integer)
             arg :user, :update_user_params
